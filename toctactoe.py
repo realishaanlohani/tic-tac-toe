@@ -3,11 +3,11 @@ import numpy as n
 print("How it works> \n You choose whether to go first or second \n Then you pick a number based on the diagram shown and then yay you play tictactoe, how nice")
 gameboard = n.array([['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9']])
 pfield = n.array([['', '', ''], ['', '', ''], ['','','']])
-
+l = [1,2,3,4,5,6,7,8,9]
 print(gameboard)
 print(pfield)
-def change_num(pick:str, loc:int):
-    if pick=='X':
+def change_num_X(loc:int):
+        global pfield
         if loc == 1:
             pfield[0,0] = 'X'
         elif loc == 2:
@@ -28,7 +28,8 @@ def change_num(pick:str, loc:int):
             pfield[2,2] = 'X'
         else:
             print("Invalid!")
-    elif pick=='O':
+def change_num_O(loc:int):
+        global pfield
         if loc == 1:
             pfield[0,0] = 'O'
         elif loc == 2:
@@ -49,12 +50,20 @@ def change_num(pick:str, loc:int):
             pfield[2,2] = 'O'
         else:
             print("Invalid!")
-    else:
-        print("Either X or 0")
 def declare_win():
     pass
+def bot_plays(pick):
+    
+    integer = r.choice(l)
+    l.pop(integer)
+    if pick == 'X':
+        change_num_O(integer)
+    elif pick == 'O':
+        change_num_X(integer)
+
 def win():
     # if []
+    global pfield
     for i in range(0,3):
         if (pfield[i]==['X', 'X', "X"]).tolist()==[True, True, True] or (pfield[i]==['O', 'O', "O"]).tolist()==[True, True, True]:
             break
@@ -65,15 +74,18 @@ def win():
         pass
 
 def first():
-    pick ='X'
+    p ='X'
     i = int(input("Enter the location: "))
-    change_num(pick, i)
+    change_num_X(i)
+    bot_plays(p)
     pass
 
+
 def second():
-    pick = 'O'
+    p = 'O'
     i = int(input("Enter the location: "))
-    change_num(pick, i)
+    bot_plays(p)
+    change_num_O(i)
     pass
 
 def choice():
@@ -82,3 +94,5 @@ def choice():
         first()
     elif a == 's':
         second()
+
+
