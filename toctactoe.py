@@ -28,6 +28,7 @@ def change_num_X(loc:int):
             pfield[2,2] = 'X'
         else:
             print("Invalid!")
+        print(pfield)
 def change_num_O(loc:int):
         global pfield
         if loc == 1:
@@ -50,49 +51,83 @@ def change_num_O(loc:int):
             pfield[2,2] = 'O'
         else:
             print("Invalid!")
+        print(pfield)
 def declare_win():
     pass
 def bot_plays(pick):
-    
+    global l
     integer = r.choice(l)
     l.pop(integer)
+    print(integer)
     if pick == 'X':
         change_num_O(integer)
     elif pick == 'O':
         change_num_X(integer)
 
+# def win():
+#     # if []
+#     global pfield
+#     for i in range(0,3):
+#         if (pfield[i]==['X', 'X', "X"]).tolist()==[True, True, True] or (pfield[i]==['O', 'O', "O"]).tolist()==[True, True, True]:
+#             break
+#     for i in range(0,3):
+#         if (pfield[:, i]==['X', 'X', "X"]).tolist()==[True, True, True] or (pfield[:, i]==['O', 'O', "O"]).tolist()==[True, True, True]:
+#             break
+#     if (str(pfield[0,0])==str(pfield[1,1])==str(pfield[2,2])=='X') or (str(pfield[0,0])==str(pfield[1,1])==str(pfield[2,2])=='O') or (str(pfield[0,3])==str(pfield[1,1])==str(pfield[3,0])=='X') or (str(pfield[0,3])==str(pfield[1,1])==str(pfield[3,0])=='O'):
+#         pass
 def win():
     # if []
     global pfield
-    for i in range(0,3):
-        if (pfield[i]==['X', 'X', "X"]).tolist()==[True, True, True] or (pfield[i]==['O', 'O', "O"]).tolist()==[True, True, True]:
-            break
-    for i in range(0,3):
-        if (pfield[:, i]==['X', 'X', "X"]).tolist()==[True, True, True] or (pfield[:, i]==['O', 'O', "O"]).tolist()==[True, True, True]:
-            break
-    if (str(pfield[0,0])==str(pfield[1,1])==str(pfield[2,2])=='X') or (str(pfield[0,0])==str(pfield[1,1])==str(pfield[2,2])=='O') or (str(pfield[0,3])==str(pfield[1,1])==str(pfield[3,0])=='X') or (str(pfield[0,3])==str(pfield[1,1])==str(pfield[3,0])=='O'):
-        pass
+    if (str(pfield[0,0])==str(pfield[1,1])==str(pfield[2,2])=='X') or (str(pfield[0,0])==str(pfield[1,1])==str(pfield[2,2])=='O') or (str(pfield[0,3])==str(pfield[1,1])==str(pfield[3,0])=='X') or (str(pfield[0,3])==str(pfield[1,1])==str(pfield[3,0])=='O')==False:
 
+        for i in range(0,3):
+            if (pfield[i]==['X', 'X', "X"]).tolist()==[True, True, True] or (pfield[i]==['O', 'O', "O"]).tolist()==[True, True, True]:
+                print("Game ended!")
+                break
+        for i in range(0,3):
+            if (pfield[:, i]==['X', 'X', "X"]).tolist()==[True, True, True] or (pfield[:, i]==['O', 'O', "O"]).tolist()==[True, True, True]:
+                print("Game Ended")
+                break
+    else:
+        print()
 def first():
+    global l
     p ='X'
-    i = int(input("Enter the location: "))
-    change_num_X(i)
-    bot_plays(p)
-    pass
+    while True:
+        i = int(input("Enter the location: "))
+        change_num_X(i)
+        l.pop(i)
+        bot_plays(p)
+        pass
 
 
 def second():
+    global l
     p = 'O'
     i = int(input("Enter the location: "))
     bot_plays(p)
     change_num_O(i)
+    l.pop(i)
+    
     pass
 
-def choice():
-    a = input("Wheather you want to go first or second (f/s): ")
-    if a == 'f':
+# def choice():
+#     a = input("Wheather you want to go first or second (f/s): ")
+#     if a == 'f':
+#         first()
+#     elif a == 's':
+#         second()
+
+
+# Condition for winning 
+# Changing values to X and O
+
+def tttgame():
+    choice = input("Wheather you want to go first or second (f/s): ")
+    if choice == 'f':
         first()
-    elif a == 's':
+    elif choice == 's':
         second()
-
-
+    else:
+        exit()
+tttgame()
