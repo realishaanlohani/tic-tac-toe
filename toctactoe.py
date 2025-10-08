@@ -4,6 +4,7 @@ print("How it works> \n You choose whether to go first or second \n Then you pic
 gameboard = n.array([['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9']])
 pfield = n.array([['', '', ''], ['', '', ''], ['','','']])
 l = [1,2,3,4,5,6,7,8,9]
+c0, c1 = 0, 0
 print(gameboard)
 print(pfield)
 def change_num_X(loc:int):
@@ -56,13 +57,16 @@ def declare_win():
     pass
 def bot_plays(pick):
     global l
+    global c1
+
     integer = r.choice(l)
-    l.pop(integer)
-    print(integer)
+    l.remove(integer)
+    c1+=1
     if pick == 'X':
         change_num_O(integer)
     elif pick == 'O':
         change_num_X(integer)
+    
 
 # def win():
 #     # if []
@@ -75,41 +79,94 @@ def bot_plays(pick):
 #             break
 #     if (str(pfield[0,0])==str(pfield[1,1])==str(pfield[2,2])=='X') or (str(pfield[0,0])==str(pfield[1,1])==str(pfield[2,2])=='O') or (str(pfield[0,3])==str(pfield[1,1])==str(pfield[3,0])=='X') or (str(pfield[0,3])==str(pfield[1,1])==str(pfield[3,0])=='O'):
 #         pass
+def winner():
+    global game_on
+    if c0>c1 or c0 == c1:
+        print("user wins!")
+    else:
+        print("bot wins!")
+    if game_on == 0:
+        exit()
+    else:
+        pass
 def win():
     # if []
     global pfield
     if (str(pfield[0,0])==str(pfield[1,1])==str(pfield[2,2])=='X') or (str(pfield[0,0])==str(pfield[1,1])==str(pfield[2,2])=='O') or (str(pfield[0,3])==str(pfield[1,1])==str(pfield[3,0])=='X') or (str(pfield[0,3])==str(pfield[1,1])==str(pfield[3,0])=='O')==False:
-
         for i in range(0,3):
             if (pfield[i]==['X', 'X', "X"]).tolist()==[True, True, True] or (pfield[i]==['O', 'O', "O"]).tolist()==[True, True, True]:
                 print("Game ended!")
+                
+        for i in range(0,3):
+            if (pfield[:, i]==['X', 'X', "X"]).tolist()==[True, True, True] or (pfield[:, i]==['O', 'O', "O"]).tolist()==[True, True, True]:
+                print("Game Ended")
+                
+    else:
+        print()
+def first():
+    global l, game_on
+    global c0, c1
+    p ='X'
+    game_on = 1
+    while True:
+        i = int(input("Enter the location: "))
+        change_num_X(i)
+        c0+=1
+        l.remove(i)
+        bot_plays(p)
+        
+
+        global pfield
+        if (str(pfield[0,0])==str(pfield[1,1])==str(pfield[2,2])=='X') or (str(pfield[0,0])==str(pfield[1,1])==str(pfield[2,2])=='O') or (str(pfield[0,2])==str(pfield[1,1])==str(pfield[2,0])=='X') or (str(pfield[0,2])==str(pfield[1,1])==str(pfield[2,0])=='O'):
+            print("Game Ended!")
+            winner()
+            break
+        
+        for i in range(0,3):
+            if (pfield[i]==['X', 'X', "X"]).tolist()==[True, True, True] or (pfield[i]==['O', 'O', "O"]).tolist()==[True, True, True]:
+                print("Game ended!")
+                game_on = 0
+                winner()
                 break
         for i in range(0,3):
             if (pfield[:, i]==['X', 'X', "X"]).tolist()==[True, True, True] or (pfield[:, i]==['O', 'O', "O"]).tolist()==[True, True, True]:
                 print("Game Ended")
+                game_on = 0
+                winner()
                 break
-    else:
-        print()
-def first():
-    global l
-    p ='X'
-    while True:
-        i = int(input("Enter the location: "))
-        change_num_X(i)
-        l.pop(i)
-        bot_plays(p)
-        pass
 
 
 def second():
-    global l
+    global c0, c1
+    global l, game_on
     p = 'O'
-    i = int(input("Enter the location: "))
-    bot_plays(p)
-    change_num_O(i)
-    l.pop(i)
-    
-    pass
+    game_on = 1
+    while True:
+        i = int(input("Enter the location: "))
+        c0+=1
+        bot_plays(p)
+        change_num_O(i)
+        l.remove(i)
+
+        global pfield
+        if (str(pfield[0,0])==str(pfield[1,1])==str(pfield[2,2])=='X') or (str(pfield[0,0])==str(pfield[1,1])==str(pfield[2,2])=='O') or (str(pfield[0,2])==str(pfield[1,1])==str(pfield[2,0])=='X') or (str(pfield[0,2])==str(pfield[1,1])==str(pfield[2,0])=='O'):
+            print("Game Ended!")
+            winner()
+            break
+        
+        for i in range(0,3):
+            if (pfield[i]==['X', 'X', "X"]).tolist()==[True, True, True] or (pfield[i]==['O', 'O', "O"]).tolist()==[True, True, True]:
+                print("Game ended!")
+                game_on = 0
+                winner()
+                break
+        for i in range(0,3):
+            if (pfield[:, i]==['X', 'X', "X"]).tolist()==[True, True, True] or (pfield[:, i]==['O', 'O', "O"]).tolist()==[True, True, True]:
+                print("Game Ended")
+                game_on = 0
+                winner()
+                break
+
 
 # def choice():
 #     a = input("Wheather you want to go first or second (f/s): ")
